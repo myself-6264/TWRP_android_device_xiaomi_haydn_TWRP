@@ -1,0 +1,27 @@
+[
+  {
+    "remote": "TeamWin",
+    "repository": "android_device_xiaomi_haydn-common",
+    "target_path": "device/xiaomi/haydn-common"
+  },
+  {
+    "remote": "github",
+    "repository": "nebrassy/android_kernel_xiaomi_haydn",
+    "target_path": "kernel/xiaomi/haydn"
+  },
+  {
+    "remote": "LineageOS",
+    "repository": "android_device_xiaomi_haydn",
+    "target_path": "device/xiaomi/haydn"
+  },
+  {
+    "remote": "github",
+    "repository": "nebrassy/android_bootable_recovery",
+    "target_path": "bootable/recovery"
+  },
+  {
+    "remote": "TeamWin",
+    "repository": "android_device_xiaomi_sm8250-common",
+    "target_path": "device/xiaomi/sm8250-common"
+  }
+]
