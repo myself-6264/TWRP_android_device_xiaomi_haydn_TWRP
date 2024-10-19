@@ -35,18 +35,20 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 #<src>                                                 <mnt_point>            <type>  <mnt_flags and options>                            <fs_mgr_flags>
-/system                erofs     system                                     flags=display=system;logical;slotselect
-/system_ext            erofs     system_ext                                 flags=display=system_ext;logical;slotselect
-/product               erofs     product                                    flags=display=product;logical;slotselect
-/vendor                erofs     vendor                                     flags=display=vendor;logical;slotselect
-/odm                   erofs     odm                                        flags=display=odm;logical;slotselect
-/mnt/vendor/mi_ext     erofs     mi_ext                                     flags=display=mi_ext;logical;slotselect
-/mi_ext                erofs     /mnt/vendor/mi_ext                         flags=display=mi_ext
-/metadata              ext4      /dev/block/bootdevice/by-name/metadata     flags=display=metadata
-/data                  f2fs      /dev/block/bootdevice/by-name/userdata     flags=display=data
-/cache                 ext4      /dev/block/bootdevice/by-name/rescue       flags=display=cache
-/sdcard                vfat      /dev/block/mmcblk0p1                       flags=display=sdcard
-/boot                  emmc      /dev/block/bootdevice/by-name/boot         flags=display=boot
-/misc                  emmc      /dev/block/bootdevice/by-name/misc         flags=display=misc
-/cust                  ext4      /dev/block/bootdevice/by-name/cust         flags=display=cust
-
+system                                                  /system                ext4    ro,barrier=1,discard                                 wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system                                                  /system                erofs   ro                                                   wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system_ext                                              /system_ext            ext4    ro,barrier=1,discard                                 wait,slotselect,avb=vbmeta_system,logical,first_stage_mount
+system_ext                                              /system_ext            erofs   ro                                                   wait,slotselect,avb=vbmeta_system,logical,first_stage_mount
+product                                                 /product               ext4    ro,barrier=1,discard                                 wait,slotselect,avb=vbmeta_system,logical,first_stage_mount
+product                                                 /product               erofs   ro                                                   wait,slotselect,avb=vbmeta_system,logical,first_stage_mount
+vendor                                                  /vendor                ext4    ro,barrier=1,discard                                 wait,slotselect,avb,logical,first_stage_mount
+vendor                                                  /vendor                erofs   ro                                                   wait,slotselect,avb,logical,first_stage_mount
+odm                                                     /odm                   ext4    ro,barrier=1,discard                                 wait,slotselect,avb,logical,first_stage_mount
+odm                                                     /odm                   erofs   ro                                                   wait,slotselect,avb,logical,first_stage_mount
+mi_ext                                                  /mi_ext                ext4    ro,barrier=1,discard                                 wait,slotselect,avb=vbmeta,logical,first_stage_mount,nofail
+mi_ext                                                  /mi_ext                erofs   ro                                                   wait,slotselect,avb=vbmeta,logical,first_stage_mount,nofail
+/dev/block/bootdevice/by-name/metadata                  /metadata              ext4    noatime,nosuid,nodev,discard                         wait,check,formattable,first_stage_mount
+/dev/block/bootdevice/by-name/userdata                  /data                  ext4    noatime,nosuid,nodev,discard  latemount,wait,formattable
+/dev/block/bootdevice/by-name/misc                      /misc                  emmc    defaults                                             defaults
+/dev/block/bootdevice/by-name/persist                   /persist               ext4    noatime,nosuid,nodev,barrier=1                       wait
+/dev/block/bootdevice/by-name/rescue                    /cache                 ext4    noatime,nosuid,nodev,barrier=1                       wait
