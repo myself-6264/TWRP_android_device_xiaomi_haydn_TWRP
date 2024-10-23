@@ -22,6 +22,12 @@ $(call inherit-product, $(DEVICE_PATH)/device.mk)
 # Release name
 PRODUCT_RELEASE_NAME := haydn
 
+# Custom vendor used in build tree (automatically taken from this file's prefix)
+CUSTOM_VENDOR := $(lastword $(subst /, ,$(firstword $(subst _, ,$(firstword $(MAKEFILE_LIST))))))
+
+# OEM Info (automatically taken from device tree path)
+BOARD_VENDOR := $(or $(word 2,$(subst /, ,$(firstword $(MAKEFILE_LIST)))),$(value 2))
+
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
 PRODUCT_NAME := $(CUSTOM_VENDOR)_$(PRODUCT_DEVICE)
