@@ -23,11 +23,11 @@ $(call inherit-product, $(DEVICE_PATH)/device.mk)
 PRODUCT_RELEASE_NAME := haydn
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := haydn
-PRODUCT_NAME := twrp_haydn
-PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := Redmi K40 Pro
-PRODUCT_MANUFACTURER := Xiaomi
+PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
+PRODUCT_NAME := $(CUSTOM_VENDOR)_$(PRODUCT_DEVICE)
+PRODUCT_BRAND := $(BOARD_VENDOR)
+PRODUCT_MODEL := $(shell echo $(PRODUCT_BRAND) | tr  '[:lower:]' '[:upper:]')_$(PRODUCT_DEVICE)
+PRODUCT_MANUFACTURER := $(PRODUCT_BRAND)
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := haydn,haydnpro,haydn_in,haydnin
